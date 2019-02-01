@@ -55,7 +55,7 @@ var wxEVT_USER_FIRST* {.importcpp: "wxEVT_USER_FIRST", header: wxh.}: WxEventTyp
 
 type 
   WxEventCategory* {.size: sizeof(cint), 
-                     importcpp: "wxEventConnectionRef::wxEventCategory", 
+                     importcpp: "wxEventCategory", 
                      header: wxh.} = enum 
     wxEVT_CATEGORY_UI = 1, wxEVT_CATEGORY_USER_INPUT = 2, 
     wxEVT_CATEGORY_NATIVE_EVENTS = 1 or 2, wxEVT_CATEGORY_SOCKET = 4, 
