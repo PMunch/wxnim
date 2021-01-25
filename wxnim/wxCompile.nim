@@ -95,9 +95,9 @@ elif defined(gcc) or defined(clang):
   else: # not defined(windows)
     const wxConfig =
       when defined(wxWidgetsPath):
-        wxWidgetsPath / "wx-config --libs all"
+        wxWidgetsPath / "wx-config"
       else:
-        "wx-config --libs all"
+        "wx-config"
     const wxConfigOptions {.strdefine.}: string = ""
     {.passC: "`" & wxConfig & " " & wxConfigOptions & " --cppflags`".}
-    {.passL: "`" & wxConfig & " " & wxConfigOptions & " --libs`".}
+    {.passL: "`" & wxConfig & " " & wxConfigOptions & " --libs all`".}

@@ -22,7 +22,7 @@ Still in development, is shown to work fine, but needs more testing!
 
 
 # Installation
-wxWidgets works across all major platforms but the build process is slightly different. Below follows instructions on how to build for Linux and Windows. If you use Mac OSX it would be great if you shared how to build on a Mac and it can be added here as well. Since a simple nim.cfg file doesn't quite cut it here we use the file wxCompile.nim to decide which flags to pass so you would have to modify that to make changes.
+wxWidgets works across all major platforms but the build process is slightly different. Below are instructions for building on Linux, Windows, and macOS. Since a simple nim.cfg file doesn't quite cut it here we use the file wxCompile.nim to decide which flags to pass so you would have to modify that to make changes.
 
 ## Installation on Linux
 
@@ -39,6 +39,13 @@ More details can be found here:
 
 https://wiki.wxwidgets.org/Compiling_wxWidgets_with_MinGW
 
+## Installation on macOS 
+
+Install wxWidgets for macOS: 
+``brew install wxmac``
+
+The ``wxmac`` formula supports Apple Silicon (M1) as well as x86_64. 
+
 # Examples
 
 ## With GenUI macro
@@ -49,7 +56,7 @@ This module ships with a macro to easily create GUIs. To see it in use look at o
 
     nim cpp -r controlgallery.nim
 
-The output of the macro should look like these images from Linux and Windows respectively:
+The output of the macro should look like these images from Linux, Windows, and macOS:
 
 On Linux wxWidgets uses GTK+ as it's backend and looks will vary greatly depending on theme (this screenshot is taken with the Arc theme and M+ 2p font).
 
@@ -58,6 +65,8 @@ On Linux wxWidgets uses GTK+ as it's backend and looks will vary greatly dependi
 On Windows wxWidgets uses Win32 Forms, so looks might change depending on Windows version, this is from Windows 10:
 
 ![Windows](/screenshots/windows.png)
+
+On macOS wxWidgets uses Apple's Cocoa toolkit. 
 
 ## Running work on background threads
 
