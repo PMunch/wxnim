@@ -7,6 +7,7 @@ Still in development, is shown to work fine, but needs more testing!
 - [Installation](#installation)
   * [Installation on Linux](#installation-on-linux)
   * [Installation on Windows](#installation-on-windows)
+  * [Installation on OSX](#installation-on-osx)
 - [Examples](#examples)
   * [With GenUI macro](#with-genui-macro)
   * [Running work on background threads](#running-work-on-background-threads)
@@ -22,15 +23,15 @@ Still in development, is shown to work fine, but needs more testing!
 
 
 # Installation
-wxWidgets works across all major platforms but the build process is slightly different. Below follows instructions on how to build for Linux and Windows. If you use Mac OSX it would be great if you shared how to build on a Mac and it can be added here as well. Since a simple nim.cfg file doesn't quite cut it here we use the file wxCompile.nim to decide which flags to pass so you would have to modify that to make changes.
+wxWidgets works across all major platforms but the build process is slightly different. Below follows instructions on how to build for Linux, Windows and OSX. Since a simple nim.cfg file doesn't quite cut it here we use the file wxCompile.nim to decide which flags to pass so you would have to modify that to make changes. You don't need to install this specific module, you can go to the [examples](#examples) directly to see how to use this module.
 
 ## Installation on Linux
 
-Install ``wxnim`` and grab the ``wxGtk`` package from your package manager. Make sure ``wx-config`` is in your PATH and executable. If you want to compile wxWidgets 3.0.2 yourself (for example in order to use X11 or link it statically into your application) you can use the ``-d:"wxWidgetsPath:<path to the folder wx-config is in>"`` flag.
+Download ``wxnim`` and grab the ``wxGtk`` package from your package manager. Make sure ``wx-config`` is in your PATH and executable. If you want to compile wxWidgets 3.0.2 yourself (for example in order to use X11 or link it statically into your application) you can use the ``-d:"wxWidgetsPath:<path to the folder wx-config is in>"`` flag.
 
 ## Installation on Windows
 
-Install ``wxnim`` and point it to a compiled version of wxWidgets 3.0.2 with the ``-d:"wxWidgetsPath:<path to wxWidgets root folder>"`` flag or set up your compiler to know where these files are.
+Download ``wxnim`` and point it to a compiled version of wxWidgets 3.0.2 with the ``-d:"wxWidgetsPath:<path to wxWidgets root folder>"`` flag or set up your compiler to know where these files are. 
 
 Compile wxWidgets
 via ``mingw32-make -f makefile.gcc SHARED=0 UNICODE=1 BUILD=release``.
@@ -38,6 +39,10 @@ via ``mingw32-make -f makefile.gcc SHARED=0 UNICODE=1 BUILD=release``.
 More details can be found here:
 
 https://wiki.wxwidgets.org/Compiling_wxWidgets_with_MinGW
+
+## Installation on OSX
+
+Make sure you have wxWindows installed. The easiest way to do so is through brew, with the command ``brew install wxmac``, if you have [homebrew](https://brew.sh) installed. The ``wx-config`` should be in your PATH. More details can be found at the [Linux installation](#installation-on-linux).
 
 # Examples
 
@@ -49,7 +54,7 @@ This module ships with a macro to easily create GUIs. To see it in use look at o
 
     nim cpp -r controlgallery.nim
 
-The output of the macro should look like these images from Linux and Windows respectively:
+The output of the macro should look like these images from Linux, Windows and OSX respectively:
 
 On Linux wxWidgets uses GTK+ as it's backend and looks will vary greatly depending on theme (this screenshot is taken with the Arc theme and M+ 2p font).
 
@@ -58,6 +63,11 @@ On Linux wxWidgets uses GTK+ as it's backend and looks will vary greatly dependi
 On Windows wxWidgets uses Win32 Forms, so looks might change depending on Windows version, this is from Windows 10:
 
 ![Windows](/screenshots/windows.png)
+
+On OSX it supports both, Light and Dark theme, if wxmac version is >=3.1.2.
+
+![OSX](/screenshots/osx.png)
+
 
 ## Running work on background threads
 
