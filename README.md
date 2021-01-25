@@ -7,6 +7,7 @@ Still in development, is shown to work fine, but needs more testing!
 - [Installation](#installation)
   * [Installation on Linux](#installation-on-linux)
   * [Installation on Windows](#installation-on-windows)
+  * [Installation on macOS](#installation-on-macOS)
 - [Examples](#examples)
   * [With GenUI macro](#with-genui-macro)
   * [Running work on background threads](#running-work-on-background-threads)
@@ -41,10 +42,30 @@ https://wiki.wxwidgets.org/Compiling_wxWidgets_with_MinGW
 
 ## Installation on macOS 
 
-Install wxWidgets for macOS: 
+Both methods below work for Apple Silicon (M1) as well as x86_64.
+
+### Method 1: Install wxWidgets with Homebrew
 ``brew install wxmac``
 
-The ``wxmac`` formula supports Apple Silicon (M1) as well as x86_64. 
+This installs 3.0.5, which doesn't support dark mode. 
+If you want to support dark mode, you need version 3.1.x for that. 
+However, trying to install HEAD via ``brew install --HEAD wxmac) fails so you have to build wxWidgets yourself.
+
+
+### Method 2: Build wxWidgets 
+The following steps work even if you have already installed wxWidgets via Homebrew (they can live side-by-side).
+
+1. Get [latest development release|https://www.wxwidgets.org/downloads/] (3.1.4 as of this writing)
+2. Unarchive into an appropriate directory. For remaining steps, assume /usr/local
+3. ``cd /usr/local/wxWidgets-3.1.4``
+4. ``mkdir build_macOS && cd build_macOS`` (make a build output directory and cd into it)
+5. ``../configure CXXFLAGS="-I/opt/homebrew/include"`` (pass include directory for brew-installed libs like ``libtiff``)
+6. ``make``
+
+wxWidgets is now built in /usr/local/wxWidgets-3.1.4/build_macOS/. 
+To build your Nim/wxWidgets project, pass this path to the nim compiler. 
+For instance, to build the ``controlgallery.nim`` example, execute ``nim cpp -r -d:"wxWidgetsPath:/usr/local/wxWidgets-3.1.4/build_macOS" controlgallery.nim``
+
 
 # Examples
 
@@ -58,15 +79,18 @@ This module ships with a macro to easily create GUIs. To see it in use look at o
 
 The output of the macro should look like these images from Linux, Windows, and macOS:
 
-On Linux wxWidgets uses GTK+ as it's backend and looks will vary greatly depending on theme (this screenshot is taken with the Arc theme and M+ 2p font).
+On Linux, wxWidgets uses GTK+ as it's backend and looks will vary greatly depending on theme (this screenshot is taken with the Arc theme and M+ 2p font).
 
 ![Linux](/screenshots/linux.png)
 
-On Windows wxWidgets uses Win32 Forms, so looks might change depending on Windows version, this is from Windows 10:
+On Windows, wxWidgets uses Win32 Forms, so looks might change depending on Windows version, this is from Windows 10:
 
 ![Windows](/screenshots/windows.png)
 
-On macOS wxWidgets uses Apple's Cocoa toolkit. 
+On macOS, wxWidgets uses Apple's Cocoa toolkit. 
+
+![macOS-darkmode](/screenshots/macOS-darkmode.png)
+![macOS-lightmode](/screenshots/macOS-lightmode.png)
 
 ## Running work on background threads
 
