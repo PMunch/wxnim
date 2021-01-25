@@ -48,22 +48,22 @@ Both methods below work for Apple Silicon (M1) as well as x86_64.
 ``brew install wxmac``
 
 This installs 3.0.5, which doesn't support dark mode. 
-If you want to support dark mode, you need version 3.1.x for that. 
-However, trying to install HEAD via ``brew install --HEAD wxmac) fails so you have to build wxWidgets yourself.
+If you want to support dark mode, you need version 3.1.x by building it yourself. See steps below. 
 
+### Method 2: Build wxWidgets yourself (recommended)
 
-### Method 2: Build wxWidgets 
 The following steps work even if you have already installed wxWidgets via Homebrew (they can live side-by-side).
 
-1. Get [latest development release|https://www.wxwidgets.org/downloads/] (3.1.4 as of this writing)
+1. Get [latest development release](https://www.wxwidgets.org/downloads/) (3.1.4 as of this writing)
 2. Unarchive into an appropriate directory. For remaining steps, assume /usr/local
 3. ``cd /usr/local/wxWidgets-3.1.4``
 4. ``mkdir build_macOS && cd build_macOS`` (make a build output directory and cd into it)
 5. ``../configure CXXFLAGS="-I/opt/homebrew/include"`` (pass include directory for brew-installed libs like ``libtiff``)
 6. ``make``
 
-wxWidgets is now built in /usr/local/wxWidgets-3.1.4/build_macOS/. 
+wxWidgets is now built in ``/usr/local/wxWidgets-3.1.4/build_macOS/``. 
 To build your Nim/wxWidgets project, pass this path to the nim compiler. 
+
 For instance, to build the ``controlgallery.nim`` example, execute ``nim cpp -r -d:"wxWidgetsPath:/usr/local/wxWidgets-3.1.4/build_macOS" controlgallery.nim``
 
 
