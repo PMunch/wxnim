@@ -20,6 +20,16 @@ include private/string
 converter toWxString*(s: string): WxString =
   result = constructWxString(cstring(s), s.len)
 
+converter toString*(s: WxString): string = 
+  var r: cstring
+
+  {.emit: """
+  `r` = const_cast<char*>((const char*)s.ToUTF8().data());        
+  """.}  
+
+  result = $r #convert cstring to string  
+
+
 converter wxOrientationToClong*(inType:WxOrientation): clong = cast[clong](inType)
 
 converter wxStretchToCint*(inType:WxStretch): cint = cast[cint](inType)
