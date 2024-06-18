@@ -1,36 +1,33 @@
 import "../../wxnim/wx", "../../wxnim/richtext", "../../wxnim/stc"
 
-{.experimental.}
-{.emit: "#include <wx/spinctrl.h>" .}
-
 proc createFrame(): ptr WxFrame
 let f = createFrame()
 
 proc handleButtonClick(e: var WxCommandEvent) {.cdecl.} =
-  f.setStatusText("Quit called!")
+  f[].setStatusText("Quit called!")
 
 proc createFrame(): ptr WxFrame =
   result = cnew constructWxFrame(nil, wxID_ANY, "Hello World",
                                  constructWxPoint(50, 50),
                                  constructWxSize(450, 340))
-  result.createStatusBar()
-  result.setStatusText("Welcome to wxWidgets!")
+  result[].createStatusBar()
+  result[].setStatusText("Welcome to wxWidgets!")
 
   let menuFile = cnew constructWxMenu()
 
   let helloID = newControlId()
-  menuFile.append(helloID, "&Hello...\tCtrl-H",
+  menuFile[].append(helloID, "&Hello...\tCtrl-H",
                    "Help string shown in status bar for this menu item")
-  menuFile.appendSeparator()
-  menuFile.append(wxID_EXIT)
+  menuFile[].appendSeparator()
+  menuFile[].append(wxID_EXIT)
   let menuHelp = cnew constructWxMenu()
-  menuHelp.append(wxID_ABOUT)
+  menuHelp[].append(wxID_ABOUT)
   let menuBar = cnew constructWxMenuBar()
   menuBar.append(menuFile, "&File")
   menuBar.append(menuHelp, "&Help")
-  result.setMenuBar(menuBar)
+  result[].setMenuBar(menuBar)
 
-  menuBar.`bind`(wxEVT_MENU, handleButtonClick, wxID_EXIT)
+  menuBar[].`bind`(wxEVT_MENU, handleButtonClick, wxID_EXIT)
 
   let text = cnew constructWxStyledTextCtrl(result, wxID_ANY)
   text.styleClearAll()
@@ -45,7 +42,7 @@ proc createFrame(): ptr WxFrame =
   text.setKeyWords(1, "const int float void char double")
 
   let sizer = cnew constructWxBoxSizer(wxVERTICAL)
-  sizer.add(text, 1, wxEXPAND.cint)
+  sizer[].add(text, 1, wxEXPAND.cint)
   result.setSizer(sizer)
 
 

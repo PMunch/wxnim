@@ -39,8 +39,8 @@ proc echoAndWait(myChannels: tuple[message: ptr Channel[string], progress: ptr C
 
 # Run a thread
 proc startThreadClick(e: var WxCommandEvent) {.cdecl.} =
-    discard messageEntry.enable(false)
-    discard runButton.enable(false)
+    discard messageEntry[].enable(false)
+    discard runButton[].enable(false)
     progressBar.setValue(0)
     var entryText = messageEntry.getLineText(0)
     lineChannel.send $(entryText.cStr.asCstring)
@@ -60,11 +60,11 @@ genui:
         Choice(choices = @["These", "Are","Some","Options"], pos = wxDefaultPosition, size = wxDefaultSize)
 
 # Callbacks can also be created and bound like this
-mainFrame.`bind`(threadEndEvent, proc (e: var WxCommandEvent) {.cdecl.} =
-  discard messageEntry.enable(true)
-  discard runButton.enable(true)
+mainFrame[].`bind`(threadEndEvent, proc (e: var WxCommandEvent) {.cdecl.} =
+  discard messageEntry[].enable(true)
+  discard runButton[].enable(true)
 )
-mainFrame.`bind`(threadUpdateEvent, proc (e: var WxCommandEvent) {.cdecl.} =
+mainFrame[].`bind`(threadUpdateEvent, proc (e: var WxCommandEvent) {.cdecl.} =
   progressBar.setValue(cint(recv progressChannel))
 )
 

@@ -994,6 +994,11 @@ type
   WxRichTextSelection* {.importcpp: "wxRichTextSelection", header: wxh.} = object 
     mRanges* {.importc: "m_ranges".}: WxRichTextRangeArray
     mContainer* {.importc: "m_container".}: ptr WxRichTextParagraphLayoutBox
+  WxRichTextParagraphLayoutBox* {.importcpp: "wxRichTextParagraphLayoutBox", 
+                                  header: wxh.} = object of WxRichTextCompositeObject
+  WxRichTextCompositeObject* {.importcpp: "wxRichTextCompositeObject", 
+                               header: wxh.} = object of WxRichTextObject
+  WxRichTextObject* {.importcpp: "wxRichTextObject", header: wxh.} = object of WxObject
 
 
 proc constructwxRichTextSelection*(sel: WxRichTextSelection): WxRichTextSelection {.
@@ -1056,6 +1061,8 @@ type
   WxRichTextDrawingContext* {.importcpp: "wxRichTextDrawingContext", header: wxh.} = object of WxObject
     mBuffer* {.importc: "m_buffer".}: ptr WxRichTextBuffer
     mEnableVirtualAttributes* {.importc: "m_enableVirtualAttributes".}: bool
+  WxRichTextBuffer* {.importcpp: "wxRichTextBuffer", header: wxh.} = object of WxRichTextParagraphLayoutBox
+  WxRichTextPlainText* {.importcpp: "wxRichTextPlainText", header: wxh.} = object of WxRichTextObject
 
 
 proc constructwxRichTextDrawingContext*(buffer: ptr WxRichTextBuffer): WxRichTextDrawingContext {.
@@ -1085,9 +1092,6 @@ proc enableVirtualAttributes*(this: var WxRichTextDrawingContext; b: bool) {.
 proc getVirtualAttributesEnabled*(this: WxRichTextDrawingContext): bool {.
     noSideEffect, cdecl, importcpp: "GetVirtualAttributesEnabled", header: wxh.}
 
-type 
-  WxRichTextObject* {.importcpp: "wxRichTextObject", header: wxh.} = object of WxObject
-  
 
 proc constructwxRichTextObject*(parent: ptr WxRichTextObject = nil): WxRichTextObject {.
     cdecl, constructor, importcpp: "wxRichTextObject(@)", header: wxh.}
@@ -1311,10 +1315,6 @@ proc adjustAvailableSpace*(dc: var WxDC; buffer: ptr WxRichTextBuffer;
                            availableContainerSpace: WxRect): WxRect {.cdecl, 
     importcpp: "wxRichTextObject::AdjustAvailableSpace(@)", header: wxh.}
 
-type 
-  WxRichTextCompositeObject* {.importcpp: "wxRichTextCompositeObject", 
-                               header: wxh.} = object of WxRichTextObject
-  
 
 proc constructwxRichTextCompositeObject*(parent: ptr WxRichTextObject = nil): WxRichTextCompositeObject {.
     cdecl, constructor, importcpp: "wxRichTextCompositeObject(@)", header: wxh.}
@@ -1382,10 +1382,6 @@ proc defragment*(this: var WxRichTextCompositeObject;
 proc move*(this: var WxRichTextCompositeObject; pt: WxPoint) {.cdecl, 
     importcpp: "Move", header: wxh.}
 
-type 
-  WxRichTextParagraphLayoutBox* {.importcpp: "wxRichTextParagraphLayoutBox", 
-                                  header: wxh.} = object of WxRichTextCompositeObject
-  
 
 proc constructwxRichTextParagraphLayoutBox*(parent: ptr WxRichTextObject = nil): WxRichTextParagraphLayoutBox {.
     cdecl, constructor, importcpp: "wxRichTextParagraphLayoutBox(@)", 
@@ -2050,9 +2046,6 @@ proc layoutFloat*(this: var WxRichTextParagraph; dc: var WxDC;
                   floatCollector: ptr WxRichTextFloatCollector) {.cdecl, 
     importcpp: "LayoutFloat", header: wxh.}
 
-type 
-  WxRichTextPlainText* {.importcpp: "wxRichTextPlainText", header: wxh.} = object of WxRichTextObject
-  
 
 proc constructwxRichTextPlainText*(text: WxString = wxEmptyString; 
                                    parent: ptr WxRichTextObject = nil; 
@@ -2192,9 +2185,6 @@ proc setOriginalImageSize*(this: var WxRichTextImage; sz: WxSize) {.cdecl,
     importcpp: "SetOriginalImageSize", header: wxh.}
 discard "forward decl of wxRichTextCommand"
 discard "forward decl of wxRichTextAction"
-type 
-  WxRichTextBuffer* {.importcpp: "wxRichTextBuffer", header: wxh.} = object of WxRichTextParagraphLayoutBox
-  
 
 proc constructwxRichTextBuffer*(): WxRichTextBuffer {.cdecl, constructor, 
     importcpp: "wxRichTextBuffer(@)", header: wxh.}

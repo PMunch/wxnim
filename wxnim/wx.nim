@@ -17,6 +17,10 @@ const
 include "private/object"
 include private/string
 
+converter implicitDeref*[T](p: ptr T): var T = p[]
+
+converter implicitDeref*(p: ptr WxFrame): var WxWindowBase = p[]
+
 converter toWxString*(s: string): WxString =
   result = constructWxString(cstring(s), s.len)
 

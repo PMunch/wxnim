@@ -125,9 +125,9 @@ template updateOrCreate(ident: untyped, value: untyped)=
 proc createAddCall(sizerIdent: NimNode, child: WidgetArguments): NimNode =
   var addCall =
     if child.sizer != nil and (ident(child.sizer.name) == ident"staticboxsizer" or ident(child.sizer.name) == ident"Staticboxsizer"):
-      newCall("add",sizerIdent,child.sizer.identifier)
+      newCall("add", nnkBracketExpr.newTree(sizerIdent), child.sizer.identifier)
     else:
-      newCall("add",sizerIdent,child.identifier)
+      newCall("add", nnkBracketExpr.newTree(sizerIdent), child.identifier)
   var overridesDefaults: tuple[border, proportion, flag: bool]
   for addArg in child.addArguments:
     addCall.add addArg
@@ -209,10 +209,10 @@ proc createWidget(widget: WidgetArguments):NimNode =
     for node in sizerCode:
       result.add node
     if ident(widget.sizer.name) != ident"staticboxsizer" and ident(widget.sizer.name) != ident"Staticboxsizer":
-      result.add newCall("setSizer",widget.identifier, widget.sizer.identifier)
+      result.add newCall("setSizer", nnkBracketExpr.newTree(widget.identifier), widget.sizer.identifier)
 
   if widget.event.evname != nil:
-    result.add newCall("bind", widget.identifier, widget.event.evname, widget.event.evcallback)
+    result.add newCall("bind", nnkBracketExpr.newTree(widget.identifier), widget.event.evname, widget.event.evcallback)
 
   for child in widget.children:
     if not child.isStr:

@@ -1,5 +1,5 @@
 # Package
-version       = "0.9"
+version       = "0.9.1"
 author        = "Andreas Rumpf and Peter Munch-Ellingsen"
 description   = "Nim wrapper for wxWidgets"
 license       = "MIT"

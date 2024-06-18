@@ -1,7 +1,7 @@
 
 import wx
 
-{.noforward: on.}
+{.experimental: "codeReordering".}
 
 include private/richtext/richtextdialogpage
 include private/richtext/richtextbuffer
