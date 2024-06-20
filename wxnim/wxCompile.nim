@@ -100,4 +100,4 @@ elif defined(gcc) or defined(clang):
         "wx-config"
     const wxConfigOptions {.strdefine.}: string = ""
     {.passC: "`" & wxConfig & " " & wxConfigOptions & " --cppflags`".}
-    {.passL: "`" & wxConfig & " " & wxConfigOptions & " --libs`".}
+    {.passL: "`" & wxConfig & " " & wxConfigOptions & " --libs all`".}
